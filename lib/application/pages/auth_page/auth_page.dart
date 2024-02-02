@@ -132,6 +132,14 @@ class AuthPage extends StatelessWidget {
                                       ? 'Create an account'
                                       : 'I already have an account'),
                                 ),
+                              ElevatedButton(
+                                  onPressed: () async {
+                                    await AuthUseCases().signInWithGoogle();
+                                  },
+                                  child: Text(
+                                    'Sign in with google'
+                                  )
+                              )
                             ],
                           ),
                         ),

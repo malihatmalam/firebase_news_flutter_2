@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_news_flutter/application/core/services/auth_services.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 class AuthUseCases {
@@ -90,6 +91,50 @@ class AuthUseCases {
     }
   }
 
+  Future<UserCredential> signInWithGoogle() async {
+    // Create a new GoogleSignIn instance
+    final GoogleSignIn googleSignIn = GoogleSignIn();
 
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication googleAuth =
+    await googleUser!.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    UserCredential userCredential =
+    await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // Check if user data already exists in Firestore
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userCredential.user!.uid)
+        .get();
+
+    if (!userData.exists) {
+      // If the user data does not exist, create a new document in Firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
+        'username': userCredential.user!.displayName,
+        'email': userCredential.user!.email,
+        'image_url': userCredential.user!.photoURL,
+      });
+    }
+
+    return userCredential;
+  }
+
+  Future<void> signOutApplication() async{
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
+  }
 }

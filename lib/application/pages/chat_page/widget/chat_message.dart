@@ -16,11 +16,7 @@ class ChatMessages extends StatelessWidget {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('chat')
-          .orderBy(
-        'createdAt',
-        descending: true,
-      )
-          .snapshots(),
+          .orderBy('createdAt', descending: true,).snapshots(),
       builder: (ctx, chatSnapshots) {
         if (chatSnapshots.connectionState == ConnectionState.waiting) {
           return const Center(

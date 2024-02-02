@@ -5,4 +5,5 @@ class FirebaseDatasouce{
   Future<void> startFirebase() async {
     await Firebase.initializeApp();
   }
+
 }

@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AuthService extends ChangeNotifier{
   bool _isLogin = true;
@@ -10,6 +11,12 @@ class AuthService extends ChangeNotifier{
   String _enteredPassword = "";
   String _enteredUsername = "";
   File? _pickImage;
+  XFile? _imageFile;
+
+  void setImageFile(XFile? image){
+    _imageFile = image;
+    notifyListeners();
+  }
 
   void changeAuthImage(File image){
     _pickImage = image;
@@ -52,4 +59,6 @@ class AuthService extends ChangeNotifier{
   String? getEnteredPassword() => _enteredPassword;
 
   String? getEnteredEmail() => _enteredEmail;
+
+  XFile? getImageFile() => _imageFile;
 }
