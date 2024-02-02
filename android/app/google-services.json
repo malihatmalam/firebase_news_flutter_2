@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "544526018190",
+    "project_id": "fir-newsflutterbsi",
+    "storage_bucket": "fir-newsflutterbsi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544526018190:android:e11e00f90a4605e5e08bdf",
+        "android_client_info": {
+          "package_name": "com.example.firebase_news_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWygq47Y6WjP8kyqZXEN_ULXlwYG7F8E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
